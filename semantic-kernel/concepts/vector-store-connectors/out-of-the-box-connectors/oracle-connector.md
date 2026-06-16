@@ -1,19 +1,16 @@
 ---
-title: Using the Semantic Kernel Oracle Database Vector Store connector (Preview)
-description: Contains information on how to use a Semantic Kernel Vector store connector to access and manipulate data in Oracle Database.
+title: Using the Oracle AI Database Vector Store connector
+description: Contains information on how to use a vector store connector to access and manipulate data in Oracle AI Database.
 zone_pivot_groups: programming-languages
-author: minal-agashe-oracle
+author: alexkeh
 ms.topic: article
 ms.author: westey
-ms.date: 08/14/2025
+ms.date: 06/17/2026
 ms.service: semantic-kernel
 ---
-# Using the Oracle Database Vector Store connector (Preview)
+# Using the Oracle AI Database Vector Store connector
 
 ::: zone pivot="programming-language-csharp"
-
-> [!WARNING]
-> The Oracle Database Vector Store functionality is in preview, and improvements that require breaking changes may still occur in limited circumstances before release.
 
 ::: zone-end
 ::: zone pivot="programming-language-python"
@@ -31,7 +28,7 @@ ms.service: semantic-kernel
 
 ## Overview
 
-The Oracle Database Vector Store Connector can be used to access and manage data in Oracle Database. The connector has the following characteristics.
+The Oracle AI Database Vector Store connector can access and manage data in Oracle AI Database. The connector has the following characteristics.
 
 ::: zone pivot="programming-language-csharp"
 
@@ -51,7 +48,7 @@ The Oracle Database Vector Store Connector can be used to access and manage data
 | HybridSearch supported?               | No                                                                                                                                                                         |
 
 > [!IMPORTANT]
-> Vector data searches require Oracle Database 23ai or higher. All other Oracle connector features are available using Oracle Database 19c or higher.
+> Vector data searches require Oracle AI Database 23ai or higher. All other Oracle connector features are available using Oracle Database 19c or higher.
 
 ::: zone-end
 ::: zone pivot="programming-language-python"
@@ -98,22 +95,22 @@ The Oracle Database Vector Store Connector can be used to access and manage data
 
 ## Getting started
 
-Add the Oracle Database Vector Store connector NuGet package to your project.
+Add the Oracle AI Database Vector Store connector NuGet package to your project.
 
 ```dotnetcli
-dotnet add package Oracle.VectorData --prerelease
+dotnet add package Oracle.VectorData
 ```
 
-You can add the vector store to the `IServiceCollection` dependency injection container using extension methods provided by Semantic Kernel. In this case, an instance of the `Oracle.VectorData.OracleVectorStore` class also gets registered with the container.
+You can add the vector store to the `IServiceCollection` dependency injection container using Microsoft Agent Framework extension methods. In this case, an instance of the `Oracle.VectorData.OracleVectorStore` class also gets registered with the container.
 
 ```csharp
-using Microsoft.SemanticKernel;
+using Microsoft.Extensions.VectorData;
 using Oracle.VectorData;
 using Microsoft.Extensions.DependencyInjection;
 
-// Using Kernel Builder.
-var builder = Kernel.CreateBuilder();
-builder.Services.AddOracleVectorStore("<connection string>");
+// Using IServiceCollection.
+var services = new ServiceCollection();
+services.AddOracleVectorStore("<connection string>");
 ```
 
 ```csharp
@@ -129,20 +126,20 @@ builder.Services.AddOracleVectorStore("<connection string>");
 Extension methods that take no parameters are also available. These require an instance of the `Oracle.ManagedDataAccess.Client.OracleDataSource` class to be separately registered with the dependency injection container.
 
 ```csharp
-using Microsoft.SemanticKernel;
+using Microsoft.Extensions.VectorData;
 using Oracle.VectorData;
 using Microsoft.Extensions.DependencyInjection;
 using Oracle.ManagedDataAccess.Client;
 
-// Using Kernel Builder.
-var kernelBuilder = Kernel.CreateBuilder();
-builder.Services.AddSingleton<OracleDataSource>(sp =>
+// Using IServiceCollection.
+var services = new ServiceCollection();
+services.AddSingleton<OracleDataSource>(sp =>
 {
     OracleDataSourceBuilder dataSourceBuilder = new("<connection string>");
     return dataSourceBuilder.Build();
 });
 
-builder.Services.AddOracleVectorStore();
+services.AddOracleVectorStore();
 ```
 
 ```csharp
@@ -162,7 +159,7 @@ builder.Services.AddSingleton<OracleDataSource>(sp =>
 builder.Services.AddOracleVectorStore();
 ```
 
-You can construct an Oracle Database Vector Store instance directly with a custom data source or with a connection string.
+You can construct an Oracle AI Database Vector Store instance directly with a custom data source or with a connection string.
 
 ```csharp
 using Oracle.VectorData;
@@ -317,11 +314,11 @@ public class VectorStoreWithOracle {
 
 ## Data mapping
 
-The Oracle Database Vector Store connector provides a default mapper when mapping data from the data model to storage. This mapper does a direct conversion of the data model properties list to the Oracle database columns to convert to the storage schema.
+The Oracle AI Database Vector Store connector provides a default mapper when mapping data from the data model to storage. This mapper does a direct conversion of the data model properties list to the Oracle database columns to convert to the storage schema.
 
-The Oracle Database Vector Store connector supports data model annotations and record definitions.Using annotations, the information can be provided to the data model for creating indexes and database column mapping. Using [record definitions](../schema-with-record-definition.md), the information can be defined and supplied separately from the data model.
+The Oracle AI Database Vector Store connector supports data model annotations and record definitions. Using annotations, the information can be provided to the data model for creating indexes and database column mapping. Using [record definitions](../schema-with-record-definition.md), the information can be defined and supplied separately from the data model.
 
-The following table shows the default primary key data type mapping between Oracle Database and C#:
+The following table shows the default primary key data type mapping between Oracle AI Database and C#:
 
 | C# Data Type                          | Database Type                                                                                                                                                                       |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -335,7 +332,7 @@ The following table shows the default data property type mapping, including null
 
 | C# Data Type                          | Database Type                                                                                                                                                                       |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| bool              | BOOLEAN for Oracle Database 23ai and higher <br> NUMBER(1) for earlier versions        |
+| bool              | BOOLEAN for Oracle AI Database 23ai and higher <br> NUMBER(1) for earlier versions        |
 | byte              | NUMBER(3)       |
 | short/int16       | NUMBER(5)       |
 | int/int32         | NUMBER(10)      |
@@ -352,7 +349,7 @@ The following table shows the default data property type mapping, including null
 | string            | NVARCHAR2(2000) |
 | Guid              | RAW(16)         |
 
-Starting with Oracle Database 23ai, database vectors can be mapped to .NET. data types. Multiple vector columns are supported. The following table shows the default vector property type mapping, including nullable types:
+Starting with Oracle AI Database 23ai, database vectors can be mapped to .NET. data types. Multiple vector columns are supported. The following table shows the default vector property type mapping, including nullable types:
 
 | C# Data Type                          | Database Type                                                                                                                                                                       |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -398,14 +395,12 @@ CREATE TABLE "MYSCHEMA"."Hotels"
 
 ## Learn More
 
-Refer to the following Oracle Database Vector Store connector resources to learn more:
+Refer to the following Oracle AI Database Vector Store connector resources to learn more:
 
-- [Introducing the Oracle Database Vector Store Connector for Semantic Kernel](https://medium.com/oracledevs/announcing-the-oracle-database-vector-store-connector-for-semantic-kernel-adb83e806d4e)
-Describes key connector features, classes, and guides the reader through a sample AI vector search application using the connector.
-- [Documentation: Oracle Database Vector Store Connector Classes for Semantic Kernel (.NET) APIs](https://docs.oracle.com/en/database/oracle/oracle-database/23/odpnt/VSConnector4SKClasses.html)
-Contains information on Oracle Database Vector Store connector classes for adding data, retrieving data, and performing vector search in the Oracle vector database.
-- [Documentation: Oracle Data Provider for .NET](https://docs.oracle.com/en/database/oracle/oracle-database/23/odpnt/intro.html)
-Contains information on Oracle Data Provider for .NET (ODP.NET), the ADO.NET data provider for Oracle Database Vector Store connector.
+- [Documentation: Oracle AI Database Vector Store Connector Classes (.NET) APIs](https://docs.oracle.com/en/database/oracle/oracle-database/26/odpnt/VSConnector4SKClasses.html)
+Contains information on Oracle AI Database Vector Store connector classes for adding data, retrieving data, and performing vector search in the Oracle vector database.
+- [Documentation: Oracle Data Provider for .NET](https://docs.oracle.com/en/database/oracle/oracle-database/26/odpnt/intro.html)
+Contains information on Oracle Data Provider for .NET (ODP.NET), the ADO.NET data provider for Oracle AI Database Vector Store connector.
 
 ::: zone-end
 ::: zone pivot="programming-language-python"
