@@ -37,15 +37,15 @@ The Oracle AI Database Vector Store connector can access and manage data in Orac
 | Collection maps to                    | Oracle database table                                                                                                                                                         |
 | Supported key property types          | <ul><li>short</li><li>int</li><li>long</li><li>string</li><li>Guid</li></ul>                                                                                                  |
 | Supported data property types         | <ul><li>bool</li><li>byte</li><li>short</li><li>int</li><li>decimal</li><li>long</li><li>float</li><li>double</li><li>DateTime</li><li>DateTimeOffset</li><li>TimeSpan</li><li>char</li><li>char[]</li><li>byte[]</li><li>String</li><li>Guid</li><li>*and nullable type of the above types*</i></li></ul> |
-| Supported vector property types       | <ul><li>ReadOnlyMemory\<float\></li><li>Embedding\<float\></li><li>float[]</li><li>ReadOnlyMemory\<double\></li><li>Embedding\<double\></li><li>double[]</li><li>ReadOnlyMemory\<short\></li><li>Embedding\<short\></li><li>short[]</li><li>ReadOnlyMemory\<byte\></li><li>Embedding\<byte\></li><li>byte[]</li><li>BitArray</li><li>BinaryEmbedding</li></ul>                                                                                          |
+| Supported vector property types       | <ul><li>ReadOnlyMemory\<float\></li><li>Embedding\<float\></li><li>float[]</li><li>ReadOnlyMemory\<double\></li><li>Embedding\<double\></li><li>double[]</li><li>ReadOnlyMemory\<short\></li><li>Embedding\<short\></li><li>short[]</li><li>ReadOnlyMemory\<byte\></li><li>Embedding\<byte\></li><li>byte[]</li><li>BitArray</li><li>BinaryEmbedding</li></ul> |
 | Supported index types                 | <ul><li>Flat (default)</li><li>HNSW</li><li>IVF</li></ul>                                                                                                                     |
-| Supported distance functions          | <ul><li>CosineDistance</li><ul><li>FLOAT32, FLOAT64, and INT8 vector default</li></ul><li>CosineSimilarity</li><li>DotProductSimilarity</li><li>NegativeDotProductSimilarity</li><li>EuclideanDistance</li><li>EuclideanSquaredDistance</li><li>HammingDistance</li><ul><li>BINARY vector default</li></ul><li>ManhattanDistance</li><li>JaccardDistance<br> To use Jaccard distance, set the DistanceFunction string to "JACCARD" (for example, DistanceFunction = "JACCARD"). This value is case sensitive. Jaccard distance requires BINARY numeric format vectors. </li></ul>                                                                                     |
-| Supported filter clauses              | <ul><li>==</li><li>!=</li><li><</li><li><=</li><li>></li><li>>=</li><li>List.Contains() <ul><li>Only when checking if the model property is in the list</li></ul></li></ul>                                                                                                                                                     |
-| Supports zero, one, or multiple vectors in a record | Yes                                                                                                                                                                           |
+| Supported distance functions          | <ul><li>CosineDistance</li><ul><li>FLOAT32, FLOAT64, and INT8 vector default</li></ul><li>CosineSimilarity</li><li>DotProductSimilarity</li><li>NegativeDotProductSimilarity</li><li>EuclideanDistance</li><li>EuclideanSquaredDistance</li><li>HammingDistance</li><ul><li>BINARY vector default</li></ul><li>ManhattanDistance</li><li>JaccardDistance<br> To use Jaccard distance, set the DistanceFunction string to "JACCARD" (for example, DistanceFunction = "JACCARD"). This value is case sensitive. Jaccard distance requires BINARY numeric format vectors. </li></ul> |
+| Supported filter clauses              | <ul><li>==</li><li>!=</li><li><</li><li><=</li><li>></li><li>>=</li><li>List.Contains() <ul><li>Only when checking if the model property is in the list</li></ul></li></ul>   |
+| Supports zero, one, or multiple vectors in a record | Yes                                                                                                                                                             |
 | IsIndexed supported?                  | Yes                                                                                                                                                                           |
-| IsFullTextSearchable supported?          | No                                                                                                                                                                            |
-| StorageName supported?                | Yes                                                                                              |
-| HybridSearch supported?               | No                                                                                                                                                                         |
+| IsFullTextSearchable supported?       | No                                                                                                                                                                            |
+| StorageName supported?                | Yes                                                                                                                                                                           |
+| HybridSearch supported?               | No                                                                                                                                                                            |
 
 > [!IMPORTANT]
 > Vector data searches require Oracle AI Database 23ai or higher. All other Oracle connector features are available using Oracle Database 19c or higher.
@@ -53,7 +53,7 @@ The Oracle AI Database Vector Store connector can access and manage data in Orac
 ::: zone-end
 ::: zone pivot="programming-language-python"
 
- Feature Area  | Support  |
+| Feature Area  | Support  |
 |---------------|----------|
 | Collection maps to | An Oracle Database table |
 | Supported key property types | <ul><li>str</li><li>int</li><li>uuid.UUID</li></ul> |
